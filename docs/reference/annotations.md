@@ -7,14 +7,14 @@ title: "Annotations"
 
 # Annotations
 
-## Annotation Declaration
-Annotations are means of attaching metadata to code. To declare an annotation, put the *annotation*{: .keyword } keyword in front of a class:
+## Annotation 선언
+Annotation이란 코드에 메타데이터를 첨부하는 것을 의미합니다. Annotation을 정의하기 위해, 클래스의 앞에 *annotation*{: .keyword } 키워드를 추가할 수 있습니다:
 
 ``` kotlin
 annotation class fancy
 ```
 
-### Usage
+### 사용 예시
 
 ``` kotlin
 [fancy] class Foo {
@@ -24,7 +24,7 @@ annotation class fancy
 }
 ```
 
-In most cases, the square brackets are optional and only required when annotating expressions or local declarations:
+대부분의 경우, 대괄호는 필수가 아니라 Annotation의 표현이나 지역 선언을 할 때에만 필요합니다:
 
 ``` kotlin
 fancy class Foo {
@@ -35,7 +35,7 @@ fancy class Foo {
 }
 ```
 
-Use the following syntax to annotate the primary constructor of a class:
+클래스의 주생성자에 Annotation을 추가하려면, 다음 코드를 활용하면 됩니다:
 
 ``` kotlin
 class Foo [inject](dependency: MyDependency) {
@@ -43,7 +43,7 @@ class Foo [inject](dependency: MyDependency) {
 }
 ```
 
-You can also annotate property accessors:
+프로퍼티 접근자에도 Annotation을 추가할 수 있습니다:
 
 ``` kotlin
 class Foo {
@@ -52,9 +52,9 @@ class Foo {
 }
 ```
 
-### Constructors
+### 생성자
 
-Annotations may have constructors that take parameters.
+Annotation은 매개 변수를 갖는 생성자를 가질 수 있습니다.
 
 ``` kotlin
 annotation class special(val why: String)
@@ -64,7 +64,7 @@ special("example") class Foo {}
 
 ## Java Annotations
 
-Java annotations are 100% compatible with Kotlin:
+Java의 Annotation은 Kotlin과 100% 호환됩니다:
 
 ``` kotlin
 import org.junit.Test
@@ -77,7 +77,7 @@ class Tests {
 }
 ```
 
-Java annotations can also be made to look like modifiers by renaming them on import:
+Java Annotation은 import에서 새로운 이름을 정의함으로써 제어자처럼 사용될 수 있습니다:
 
 ``` kotlin
 import org.junit.Test as test

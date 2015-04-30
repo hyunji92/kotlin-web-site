@@ -7,13 +7,13 @@ title: "Basic Types"
 
 # Basic Types
 
-In Kotlin, everything is an object in the sense that we can call member functions and properties on any variable. Some types are built-in, because their implementation is optimized, but to the user they look like ordinary classes. In this section we describe most of these types: numbers, characters, booleans and arrays.
+Kotlin에서는, 어떤 변수의 멤버 함수와 프로퍼티를 호출할 수 있다는 개념에서 모든 것이 객체입니다. 몇몇 타입들은 그 구현이 최적화되어있어 빌트인으로 지정되어 있지만, 사용자에게는 평범한 클래스처럼 보입니다. 이 섹션에서 이 타입들에 대해 설명합니다: 숫자, 문자, 불, 배열.
 
-## Numbers
+## 숫자
 
-Kotlin handles numbers in a way close to Java, but not exactly the same. For example, there are no implicit widening conversions for numbers, and literals are slightly different in some cases.
+Kotlin은 숫자를 Java와 비슷하게 다루지만, 정확히 같지는 않습니다. 예를 들면, 큰 범위로의 암시적 변환이 없고, 리터럴들은 몇몇 경우에 약간 다른 점이 있습니다.
 
-Kotlin provides the following built-in types representing numbers (this is close to Java):
+Kotlin은 다음과 같은 빌트인 타입의 숫자형을 제공합니다 (이는 Java와 비슷합니다):
 
 | Type	 | Bitwidth |
 |--------|----------|
@@ -24,30 +24,30 @@ Kotlin provides the following built-in types representing numbers (this is close
 | Short	 | 16       |
 | Byte	 | 8        |
 
-Note that characters are not numbers in Kotlin.
+Kotlin에서는 문자가 숫자가 아니라는 점을 알아두세요.
 
-### Literal Constants
+### 리터럴 상수
 
-There are the following kinds of literal constants for integral values:
+다음과 같은 종류의 정수값 리터럴 상수들이 있습니다:
 
 * Decimals: `123`
   * Longs are tagged by a capital `L`: `123L`
 * Hexadecimals: `0x0F`
 * Binaries: `0b00001011`
 
-NOTE: Octal literals are not supported.
+NOTE: 8진법 리터럴은 지원하지 않습니다.
 
-Kotlin also supports a conventional notation for floating-point numbers:
+Kotlin은 또한 부동소수점 숫자의 관용적인 표현을 지원합니다:
  
 * Doubles by default: `123.5`, `123.5e10`
 * Floats are tagged by `f` or `F`: `123.5f` 
 
-### Representation
+### 표현
 
-On the Java platform, numbers are physically stored as JVM primitive types, unless we need a nullable number reference (e.g. `Int?`) or generics are involved. 
-In the latter cases numbers are boxed.
+Java 플랫폼에서, nullable 숫자를 참조(e.g. `Int?`)할 필요가 없거나 제너릭과 관계되지 않는 한 숫자는 물리적으로 JVM 프리미티브 타입으로 저장됩니다.
+그러나 반대의 경우에는 숫자가 감싸져있습니다.
 
-Note that boxing of numbers does not preserve identity:
+숫자를 감싼 것이 정체성을 유지하지 않는다는 것을 알아두세요:
 
 ``` kotlin
 val a: Int = 10000
@@ -57,7 +57,7 @@ val anotherBoxedA: Int? = a
 print(boxedA identityEquals anotherBoxedA) // !!!Prints 'false'!!!
 ```
 
-On the other hand, it preserves equality:
+반면에, 동일성은 유지됩니다:
 
 ``` kotlin
 val a: Int = 10000
@@ -67,10 +67,10 @@ val anotherBoxedA: Int? = a
 print(boxedA == anotherBoxedA) // Prints 'true'
 ```
 
-### Explicit Conversions
+### 명시적 변환
 
-Due to different representations, smaller types are not subtypes of bigger ones.
-If they were, we would have troubles of the following sort
+서로 다른 표현 때문에, 작은 타입은 큰 타입의 서브타입이 되지 않습니다.
+그렇게 될 경우, 다음 내용처럼 문제점이 생길 수 있습니다.
 
 ``` kotlin
 // Hypothetical code, does not actually compile:
@@ -79,23 +79,23 @@ val b: Long? = a // implicit conversion yields a boxed Long (java.lang.Long)
 print(a == b) // Surprise! This prints "false" as Long's equals() check for other part to be Long as well
 ```
 
-So not only identity, but even equality would have been lost silently all over the place.
+그래서 정체성 뿐만 아니라 동일성까지도 모든 부분에서 조용히 사라질 수 있습니다.
 
-As a consequence, smaller types are NOT implicitly converted to bigger types.
-This means that we cannot assign a value of type `Byte` to an `Int` variable without an explicit conversion
+결론적으로, 작은 타입들은 암시적으로는 큰 타입으로 변환될 수 없습니다.
+이는 명시적 변환 없이는 `Byte` 타입을 `Int` 타입으로 할당할 수 없음을 의미합니다.
 
 ``` kotlin
 val b: Byte = 1 // OK, literals are checked statically
 val i: Int = b // ERROR
 ```
 
-We can use explicit conversions to widen numbers
+더 큰 숫자로의 명시적 변환을 사용할 수 있습니다.
 
 ``` kotlin
 val i: Int = b.toInt() // OK: explicitly widened
 ```
 
-Every number type supports the following conversions:
+모든 숫자 타입은 다음 변환을 지원합니다:
 
 * `toByte(): Byte`
 * `toShort(): Short`
@@ -105,24 +105,24 @@ Every number type supports the following conversions:
 * `toDouble(): Double`
 * `toChar(): Char`
 
-Absence of implicit conversions is rarely noticeable because we can use literals almost freely cause the type is inferred from the context, and arithmetical operations are overloaded for appropriate conversions, for example
+암시적 변환이 없다는 점은 문맥으로부터 타입을 유추할 수 있고, 산술 연산들이 적절하게 오버로딩되어 리터럴들을 거의 자유롭게 사용할 수 있기 때문에 좀처럼 눈에 띄지 않는 부분입니다. 예를 들자면 이렇습니다.
 
 ``` kotlin
 val l = 1.toLong() + 3 // Long + Int => Long
 ```
 
-### Operations
+### 연산
 
-Kotlin supports the standard set of arithmetical operations over numbers, which are declared as members of appropriate classes (but the compiler optimizes the calls down to the corresponding instructions).
-See [Operator overloading](operator-overloading.html).
+Kotlin은 적절한 클래스의 멤버로 선언되어 있는 숫자들의 표준 산술 연산 셋을 지원합니다(컴파일러가 연산 호출을 해당하는 명령으로 최적화합니다).
+[Operator overloading](operator-overloading.html) 참고.
 
-As of bitwise operations, there're no special characters for them, but just named functions that can be called in infix form, for example:
+비트 연산에서, 특정한 문자는 없지만 중위 연산의 형태로 호출이 가능한 함수가 있습니다:
 
 ``` kotlin
 val x = (1 shl 2) and 0x000FF000
 ```
 
-Here is the complete list of bitwise operations (available for `Int` and `Long` only):
+다음 함수들이 모든 비트 연산들입니다. (`Int`와 `Long` 타입에서만 사용 가능합니다.):
 
 * `shl(bits)` – signed shift left (Java's `<<`)
 * `shr(bits)` – signed shift right (Java's `>>`)
@@ -132,9 +132,9 @@ Here is the complete list of bitwise operations (available for `Int` and `Long` 
 * `xor(bits)` – bitwise xor
 * `inv()` – bitwise inversion
 
-## Characters
+## 문자
 
-Characters are represented by the type `Char`. They can not be treated directly as numbers
+문자는 `Char`라는 타입으로 표현됩니다. 문자는 숫자로 직접 사용할 수는 없습니다.
 
 ``` kotlin
 fun check(c: Char) {
@@ -144,8 +144,8 @@ fun check(c: Char) {
 }
 ```
 
-Character literals go in single quotes: `'1'`, `'\n'`, `'\uFF00'`.
-We can explicitly convert a character to an `Int` number
+문자 리터럴은 작은 따옴표로 묶어서 사용합니다: `'1'`, `'\n'`, `'\uFF00'`.
+`Int` 타입 숫자로 명시적 변환이 가능합니다.
 
 ``` kotlin
 fun decimalDigitValue(c: Char): Int {
@@ -155,22 +155,22 @@ fun decimalDigitValue(c: Char): Int {
 }
 ```
 
-Like numbers, characters are boxed when a nullable reference is needed. Identity is not preserved by the boxing operation.
+숫자와 같이, 문자도 nullable 참조가 필요할 때 감싸져 사용됩니다. 정체성은 감싸지는 것에 의해 보존되지 않습니다.
 
-## Booleans
+## 불
 
-The type `Boolean` represents booleans, and has two values: *true*{: .keyword } and *false*{: .keyword }.
+`Boolean`은 불 타입을 표현하고, 두 개의 값을 갖습니다: *true*{: .keyword } 와 *false*{: .keyword }.
 
-Booleans are boxed if a nullable reference is needed.
+불 타입 또한 nullable 참조가 필요할 경우 감싸집니다.
 
-Built-in operations on booleans include
+불 타입의 빌트인 연산은 다음과 같은 것들이 있습니다.
 
 * `||` – lazy disjunction
 * `&&` – lazy conjunction
 
-## Arrays
+## 배열
 
-Arrays in Kotlin are represented by the `Array` class, that has `get` and `set` functions (that turn into `[]` by operator overloading conventions), and `size`, along with a few other useful member functions:
+Kotlin의 배열은 (연산자 오버로딩 컨벤션에 의해 `[]`로 표현되는) `get`과 `set` 함수, `size` 함수 등 몇 가지 유용한 멤버 함수들을 갖는 `Array` 클래스로 표현됩니다:
 
 ``` kotlin
 class Array<T> private () {
@@ -183,37 +183,33 @@ class Array<T> private () {
 }
 ```
 
-To create an array, we can use a library function `array()` and pass the item values to it, so that `array(1, 2, 3)` creates an array [1, 2, 3].
-Alternatively, the `arrayOfNulls()` library function can be used to create an array of a given size filled with null elements.
+배열을 만들기 위해 `array()`라는 라이브러리 함수에 항목 값들을 넘겨줄 수 있는데, 따라서 `array(1, 2, 3)`는 [1, 2, 3] 이라는 배열을 만듭니다.
+이를 대신해서, `arrayOfNulls()`라는 라이브러리 함수를 사용하여 주어진 크기만큼 null 항목으로 채워진 배열을 만들 수도 있습니다.
 
-Another option is to use a factory function that takes the array size and the function that can return the initial value
-of each array element given its index:
+또 다른 옵션으로 배열의 크기와 주어진 인덱스로부터 항목의 초기 값을 반환하는 함수를 갖는 팩토리 함수를 사용할 수 있습니다:
 
 ``` kotlin
 // Creates an Array<String> with values ["0", "1", "4", "9", "16"]
 val asc = Array(5, {i -> (i * i).toString()})
 ```
 
-As we said above, the `[]` operation stands for calls to member functions `get()` and `set()`.
+위에서 말했듯이, `[]` 연산은 멤버 함수인 `get()`과 `set()` 의 호출을 대체합니다.
 
-Note: unlike Java, arrays in Kotlin are invariant. This means that Kotlin does not let us assign an `Array<String>`
-to an `Array<Any>`, which prevents a possible runtime failure (but you can use `Array<out Any>`, 
-see [Type Projections](generics.html#type-projections)).
+Note: Java와 다르게, Kotlin의 배열은 변하지 않습니다. 이는 Kotlin이 가능한 런타임 실패를 막기 위해 `Array<String>`을 `Array<Any>`로 할당할 수 없음을 의미합니다(하지만 `Array<out Any>`를 사용할 수 있습니다. [Type Projections](generics.html#type-projections) 참고).
 
-Kotlin also has specialized classes to represent arrays of primitive types without boxing overhead: ByteArray,
-ShortArray, IntArray and so on. These classes have no inheritance relation to the `Array` class, but they
-have the same set of methods and properties. Each of them also has a corresponding factory function:
+Kotlin은 또한 오버헤드 박싱 없이 프리미티브 타입들의 배열을 표현하기에 특화된 클래스를 갖습니다: ByteArray,
+ShortArray, IntArray 등. 이 클래스들은 `Array` 클래스와 상속 관계가 없지만, 같은 메소드와 프로퍼티 셋을 갖습니다. 이들 각각은 그에 해당하는 팩토리 함수도 갖습니다:
 
 ``` kotlin
 val x: IntArray = intArray(1, 2, 3)
 x[0] = x[1] + x[2]
 ```
 
-## Strings
+## 문자열
 
-Strings are represented by the type `String`. Strings are immutable.
-Elements of a string are characters that can be accessed by the indexing operation: `s[i]`.
-A string can be iterated over with a *for*{: .keyword }-loop:
+문자열은 `String` 타입으로 표현됩니다. 문자열은 불변적입니다.
+문자열의 원소들은 다음과 같이 인덱싱 연산으로 접근 가능한 문자들입니다: `s[i]`.
+문자열은 *for*{: .keyword }-반복으로 반복 연산을 수행할 수 있습니다:
 
 ``` kotlin
 for (c in str) {
@@ -221,17 +217,17 @@ for (c in str) {
 }
 ```
 
-### String Literals
+### 문자열 리터럴
 
-Kotlin has two types of string literals: escaped strings that may have escaped characters in them and raw strings that can contain newlines and arbitrary text. An escaped string is very much like a Java string:
+Kotlin은 두 가지 타입의 문자열 리터럴을 갖습니다: 이스케이프 문자들을 갖는 이스케이프 문자열, 개행과 임의의 텍스트를 포함하는 raw 문자열. 이스케이프 문자열은 Java 문자열과 매우 흡사합니다:
 
 ``` kotlin
 val s = "Hello, world!\n"
 ```
 
-Escaping is done in the conventional way, with a backslash.
+이스케이핑은 역슬래시와 함께 관용적인 방식으로 수행됩니다.
 
-A raw string is delimited by a triple quote (`"""`), contains no escaping and can contain newlines and any other characters:
+Raw 문자열은 이스케이핑을 포함하지 않고 개행과 다른 문자들을 포함하며 삼중 따옴표로 구분됩니다:
 
 ``` kotlin
 val text = """
@@ -241,16 +237,16 @@ val text = """
 ```
 
 
-### Templates
+### 템플릿
 
-Strings may contain template expressions, i.e. pieces of code that are evaluated and whose results are concatenated into the string. A template expression starts with a dollar sign ($) and consists of either a simple name:
+문자열은 템플릿 표현을 포함할 수 있습니다. 이는 아래의 코드처럼 문자열로 결합됩니다. 템플릿 표현은 달러 표시($)로 시작하고 간단한 이름으로 구성됩니다:
 
 ``` kotlin
 val i = 10
 val s = "i = $i" // evaluates to "i = 10"
 ```
 
-or an arbitrary expression in curly braces:
+또한 중괄호로 묶어 임의의 expression을 표현할 수도 있습니다:
 
 ``` kotlin
 val s = "abc"

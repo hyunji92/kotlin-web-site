@@ -7,15 +7,15 @@ title: "Idioms"
 
 # Idioms
 
-A collection of random and frequently used idioms in Kotlin. If you have a favorite idiom, contribute it. Do a pull request.
+Kotlin에서 임의로, 자주 사용되는 관용구들의 모음입니다. 좋아하는 관용구가 있다면, Pull Request 하세요.
 
-### Creating DTO's (POJO's/POCO's)
+### DTO 생성 (POJO/POCO)
 
 ``` kotlin
 data class Customer(val name: String, val email: String)
 ```
 
-provides a `Customer` class with the following functionality:
+`Customer` 클래스에 다음 기능을 제공합니다:
 
 * getters (and setters in case of *var*{: .keyword }'s) for all properties
 * `equals()`
@@ -24,19 +24,19 @@ provides a `Customer` class with the following functionality:
 * `copy()`
 * `component1()`, `component2()`, ..., for all properties (see [Data classes](data-classes.html))
 
-### Declaring a final local variable
+### Final 지역 변수 정의
 
 ``` kotlin
 val a = foo()
 ```
 
-### Default values for function parameters
+### 함수 매개 변수 기본값
 
 ``` kotlin
 fun foo(a: Int = 0, b: String = "") { ... }
 ```
 
-### Filtering a list
+### 리스트 필터링
 
 ``` kotlin
 val positives = list.filter { x -> x > 0 }
@@ -48,13 +48,13 @@ Or alternatively, even shorter:
 val positives = list.filter { it > 0 }
 ```
 
-### String Interpolation
+### 문자열 삽입
 
 ``` kotlin
 println("Name $name")
 ```
 
-### Instance Checks
+### 인스턴스 체크
 
 ``` kotlin
 when (x) {
@@ -64,7 +64,7 @@ when (x) {
 }
 ```
 
-### Traversing a map/list of pairs
+### Pair의 맵/리스트
 
 ``` kotlin
 for ((k, v) in map) {
@@ -72,35 +72,35 @@ for ((k, v) in map) {
 }
 ```
 
-`k`, `v` can be called anything.
+`k`, `v`는 어떤 이름으로든 불릴 수 있습니다.
 
-### Using ranges
+### 범위 사용
 
 ``` kotlin
 for (i in 1..100) { ... }
 for (x in 2..10) { ... }
 ```
 
-### Read-only list
+### 읽기 전용 리스트
 
 ``` kotlin
 val list = listOf("a", "b", "c")
 ```
 
-### Read-only map
+### 읽기 전용 맵
 
 ``` kotlin
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)
 ```
 
-### Accessing a map
+### 맵에 접근하기
 
 ``` kotlin
 println(map["key"])
 map["key"] = value
 ```
 
-### Lazy property
+### Lazy 프로퍼티
 
 ``` kotlin
 val p: String by Delegates.lazy {
@@ -108,7 +108,7 @@ val p: String by Delegates.lazy {
 }
 ```
 
-### Extension Functions
+### 확장 함수
 
 ``` kotlin
 fun String.spaceToCamelCase() { ... }
@@ -116,7 +116,7 @@ fun String.spaceToCamelCase() { ... }
 "Convert this to camelcase".spaceToCamelCase()
 ```
 
-### Creating a singleton
+### 싱글톤 생성
 
 ``` kotlin
 object Resource {
@@ -124,7 +124,7 @@ object Resource {
 }
 ```
 
-### If not null shorthand
+### 간단한 if not null
 
 ``` kotlin
 val files = File("Test").listFiles()
@@ -132,7 +132,7 @@ val files = File("Test").listFiles()
 println(files?.size)
 ```
 
-### If not null and else shorthand
+### 간단한 if not null과 else
 
 ``` kotlin
 val files = File("Test").listFiles()
@@ -140,14 +140,14 @@ val files = File("Test").listFiles()
 println(files?.size ?: "empty")
 ```
 
-### Executing a statement if null
+### Null이면 구문 실행
 
 ``` kotlin
 val data = ...
 val email = data["email"] ?: throw IllegalStateException("Email is missing!")
 ```
 
-### Execute if not null
+### Null이 아니면 실행
 
 ``` kotlin
 val data = ...
@@ -157,7 +157,7 @@ data?.let {
 }
 ```
 
-### Return on when statement
+### when 구문에서의 반환
 
 ``` kotlin
 fun transform(color: String): Int {
@@ -170,7 +170,7 @@ fun transform(color: String): Int {
 }
 ```
 
-### Return on try catch block
+### try catch 구문에서의 반환
 
 ``` kotlin
 fun test() {
@@ -184,7 +184,7 @@ fun test() {
 }
 ```
 
-### Return on if statement
+### if 구문에서의 반환
 
 ``` kotlin
 fun foo(param: Int) {
@@ -198,13 +198,13 @@ fun foo(param: Int) {
 }
 ```
 
-### Single-expression functions
+### 단일 expression 함수
 
 ``` kotlin
 fun theAnswer() = 42
 ```
 
-This is equivalent to
+위 코드는 아래 코드와 같습니다.
 
 ``` kotlin
 fun theAnswer(): Int {
@@ -212,7 +212,7 @@ fun theAnswer(): Int {
 }
 ```
 
-This can be effectively combined with other idioms, leading to shorter code. E.g. with the *when*{: .keyword }-expression:
+이는 더 짧은 코드의 다른 관용구로 효율적으로 합쳐질 수 있습니다. E.g. *when*{: .keyword }-expression:
 
 ``` kotlin
 fun transform(color: String): Int = when (color) {
