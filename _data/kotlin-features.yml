@@ -1,24 +1,24 @@
 concise:
-  title: Concise
-  description: Drastically reduce the amount of boilerplate code you need to write.
+  title: 간결
+  description: 작성해야 할 표준 코드의 양을 과감하게 줄였습니다.
   content_file: kotlin-features/concise.md
 
 safe:
-  title: Safe
-  description: Avoid entire classes of errors such as null pointer exceptions.
+  title: 안전
+  description: 모든 클래스에서 Null pointer exception과 같은 에러를 피할 수 있습니다.
   content_file: kotlin-features/safe.md
 
 versatile:
-  title: Versatile
-  description: Build server-side applications, Android apps or frontend code running in the browser.
+  title: 만능
+  description: 서버 사이드 애플리케이션, Android 앱은 물론 브라우저의 프론트엔드 코드도 빌드할 수 있습니다.
   content_file: kotlin-features/versatile.html
 
 interoperable:
-  title: Interoperable
-  description: Leverage existing frameworks and libraries of the JVM with 100% Java Interoperability.
+  title: 상호 호환
+  description: JVM의 100% Java 호환성을 가지고 기존의 프레임워크와 라이브러리를 활용할 수 있습니다.
   content_file: kotlin-features/interoperable.md
 
 tooling:
-  title: Tooling
-  description: Command Line Compiler or First Class IDE Support. Freedom to choose.
+  title: 도구
+  description: 커맨드 라인 컴파일러부터 최상의 IDE까지 지원합니다. 자유롭게 선택하세요.
   content_file: kotlin-features/tooling.md

@@ -3,19 +3,19 @@
 main:
   docs:
     url: /docs/reference/
-    title: Learn
+    title: 배우기
 
   contribute:
     url: /contribute.html
-    title: Contribute
+    title: 기여하기
 
   try:
     url: http://try.kotlinlang.org
-    title: Try Online
+    title: 온라인 체험하기
 
   download:
     url: /#get-kotlin
-    title: Download
+    title: 다운로드
     show: false
 
 
