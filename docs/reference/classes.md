@@ -174,7 +174,7 @@ class MyView : View {
 
 ### 멤버 오버라이딩
 
-위에서도 설명했듯이, 우리는 Kotlin에서 어떤 것이든 명시적으로 정합니다. Java와는 다르게, Kotlin은 오버라이드가 가능한 멤버들(*open*이라고 부릅니다.)과 오버라이드를 위해 명시적인 annotation을 필요로 합니다::
+위에서도 설명했듯이, 우리는 Kotlin에서 어떤 것이든 명시적으로 정합니다. Java와는 다르게, Kotlin은 오버라이드가 가능한 멤버들(*open*이라고 부릅니다.)과 오버라이드를 위해 명시적인 annotation을 필요로 합니다:
 
 ``` kotlin
 open class Base {
