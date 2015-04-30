@@ -9,8 +9,8 @@ title: "Control Flow"
 
 ## If Expression
 
-In Kotlin, *if*{: .keyword } is an expression, i.e. it returns a value.
-Therefore there is no ternary operator (condition ? then : else), because ordinary *if*{: .keyword } works fine in this role.
+Kotlin에서, *if*{: .keyword }는 expression입니다. 즉, 값을 반환합니다.
+그러므로 삼항 연산자는 존재하지 않는데, 평범한 *if*{: .keyword }가 같은 역할을 잘 수행하기 때문입니다.
 
 ``` kotlin
 // Traditional usage 
@@ -29,7 +29,7 @@ else
 val max = if (a > b) a else b
 ```
 
-*if*{: .keyword } branches can be blocks, and the last expression is the value of a block:
+*if*{: .keyword } 분기는 블록이 되는데, 이때 마지막 expression이 블록의 값이 됩니다:
 
 ``` kotlin
 val max = if (a > b) { 
@@ -42,13 +42,13 @@ val max = if (a > b) {
   }
 ```
 
-When *if*{: .keyword } has only one branch, or one of its branches results in `Unit`, its type is `Unit`.
+*if*{: .keyword }가 오직 한 분기를 갖거나 분기중 하나가 `Unit`을 반환할 경우, 이는 `Unit` 타입이 됩니다.
 
-See the [grammar for *if*{: .keyword }](grammar.html#if).
+[grammar for *if*{: .keyword }](grammar.html#if) 참고.
 
 ## When Expression
 
-*when*{: .keyword } replaces the switch operator of C-like languages. In the simplest form it looks like this
+*when*{: .keyword }은 C와 비슷한 언어들의 switch 연산을 대체합니다. 가장 간단한 형태로는 아래와 같습니다.
 
 ``` kotlin
 when (x) {
@@ -60,17 +60,13 @@ when (x) {
 }
 ```
 
-*when*{: .keyword } matches its argument against all branches consequently until some branch condition is satisfied.
-*when*{: .keyword } can be used either as an expression or as a statement. If it is used as an expression, the value
-of the satisfied branch becomes the value of the overall expression. If it is used as a statement, the values of
-individual branches are ignored. (Just like with *if*{: .keyword }, each branch can be a block, and its value
-is the value of the last expression in the block.)
+*when*{: .keyword }은 어떤 분기의 조건이 만족할 때까지 매개 변수에 대해 모든 분기를 계속해서 대조합니다.
+*when*{: .keyword }은 expression이 될 수도 있고 statement가 될 수도 있습니다. Expression으로 사용될 경우, 만족하는 분기의 값이 전체 expression의 값이 됩니다. Statement의 경우에는, 개별 분기들의 값은 무시됩니다. (*if*{: .keyword }와 같이, 각각의 분기는 블록이 되고 블록의 마지막 expression의 값이 그의 반환값이 됩니다.)
 
-The *else*{: .keyword } branch is evaluated if none of the other branch conditions are satisfied.
-If *when*{: .keyword } is used as an expression, the *else*{: .keyword } branch is mandatory,
-unless the compiler can prove that all possible cases are covered with branch conditions.
+*else*{: .keyword } 분기는 어떠한 분기도 만족하지 않을 경우에 처리됩니다.
+*when*{: .keyword }이 expression으로 사용된 경우, 컴파일러가 모든 가능한 경우들이 분기 조건들로 전부 덮여있다는 것을 증명할 수 없는 한 *else*{: .keyword } 분기는 의무적으로 명시해야 합니다.
 
-If many cases should be handled in the same way, the branch conditions may be combined with a comma:
+많은 경우들이 같은 방식으로 다루어져야 한다면, 분기 조건들은 콤마로 합쳐서 사용할 수 있습니다:
 
 ``` kotlin
 when (x) {
@@ -79,7 +75,7 @@ when (x) {
 }
 ```
 
-We can use arbitrary expressions (not only constants) as branch conditions
+상수 뿐만 아니라 expression도 분기 조건이 될 수 있습니다.
 
 ``` kotlin
 when (x) {
@@ -88,7 +84,7 @@ when (x) {
 }
 ```
 
-We can also check a value for being *in*{: .keyword } or *!in*{: .keyword } a [range](ranges.html) or a collection:
+Collection이나 [range](ranges.html)의 *in*{: .keyword }과 *!in*{: .keyword }을 사용하여 값을 체크할 수도 있습니다:
 
 ``` kotlin
 when (x) {
@@ -99,9 +95,7 @@ when (x) {
 }
 ```
 
-Another possibility is to check that a value *is*{: .keyword } or *!is*{: .keyword } of a particular type. Note that,
-due to [smart casts](typecasts.html#smart-casts), you can access the methods and properties of the type without
-any extra checks.
+다른 방법으로 *is*{: .keyword }나 *!is*{: .keyword }로 값의 특정 타입을 체크하는 것도 가능합니다. 이 때, [smart casts](typecasts.html#smart-casts) 덕분에 특별한 다른 체크 없이 타입의 메소드와 프로퍼티에 접근할 수 있게 된다는 점을 알아두세요.
 
 ```kotlin
 val hasPrefix = when(x) {
@@ -110,8 +104,8 @@ val hasPrefix = when(x) {
 }
 ```
 
-*when*{: .keyword } can also be used as a replacement for an *if*{: .keyword }-*else*{: .keyword } *if*{: .keyword } chain.
-If no argument is supplied, the branch conditions are simply boolean expressions, and a branch is executed when its condition is true:
+*when*{: .keyword }은 또한 *if*{: .keyword }-*else*{: .keyword } *if*{: .keyword } 체인을 대체할 수 있습니다.
+아무 매개 변수도 전달받지 않으면, 분기 조건은 단순한 불 expression이 되고, 분기는 해당 조건이 true일 때 실행됩니다:
 
 ``` kotlin
 when {
@@ -121,12 +115,12 @@ when {
 }
 ```
 
-See the [grammar for *when*{: .keyword }](grammar.html#when).
+[grammar for *when*{: .keyword }](grammar.html#when) 참고.
 
 
-## For Loops
+## For 반복
 
-*for*{: .keyword } loop iterates through anything that provides an iterator. The syntax is as follows:
+*for*{: .keyword }는 이터레이터를 제공하는 모든 것들을 반복합니다. 문법은 다음과 같습니다:
 
 ``` kotlin
 for (item in collection)
@@ -141,26 +135,26 @@ for (item: Int in ints) {
 }
 ```
 
-As mentioned before, *for*{: .keyword } iterates through anything that provides an iterator, i.e.
+위에 설명했듯이, *for*{: .keyword }는
 
-* has an instance- or extension-function `iterator()`, whose return type
-  * has an instance- or extension-function `next()`, and
-  * has an instance- or extension-function `hasNext()` that returns `Boolean`.
+* 인스턴스 혹은 확장 함수 `iterator()`를 갖고,
+  * 반환 타입이 인스턴스 혹은 확장 함수 `next()`를 갖고,
+  * `Boolean`을 반환하는 인스턴스 혹은 확장 함수 `hasNext()`를 갖는 이터레이터를 제공하는 모든 것들을 반복할 수 있습니다.
 
-If you want to iterate through an array or a list with an index, you can do it this way:
+배열이나 리스트를 인덱스와 함께 반복하고 싶을 경우, 아래의 방법처럼 할 수 있습니다:
 
 ``` kotlin
 for (i in array.indices)
   print(array[i])
 ```
 
-Note that this "iteration through a range" is compiled down to optimal implementation with no extra objects created.
+이러한 "범위 내에서의 반복"이 특별한 객체 생성이 없는 최적의 구현에 맞추어 컴파일된다는 점을 알아두세요.
 
-See the [grammar for *for*{: .keyword }](grammar.html#for).
+[grammar for *for*{: .keyword }](grammar.html#for) 참고.
 
-## While Loops
+## While 반복
 
-*while*{: .keyword } and *do*{: .keyword }..*while*{: .keyword } work as usual
+*while*{: .keyword }과 *do*{: .keyword }..*while*{: .keyword }은 평범하게 사용 가능합니다.
 
 ``` kotlin
 while (x > 0) {
@@ -172,10 +166,10 @@ do {
 } while (y != null) // y is visible here!
 ```
 
-See the [grammar for *while*{: .keyword }](grammar.html#while).
+[grammar for *while*{: .keyword }](grammar.html#while) 참고.
 
-## Break and continue in loops
+## 반복에서의 Break와 continue
 
-Kotlin supports traditional *break*{: .keyword } and *continue*{: .keyword } operators in loops. See [Returns and jumps](returns.html).
+Kotlin은 반복에서 전통적인 *break*{: .keyword }과 *continue*{: .keyword }연산자를 지원합니다. [Returns and jumps](returns.html)를 참고하세요.
 
 
