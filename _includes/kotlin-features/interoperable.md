@@ -1,6 +1,6 @@
-### Interoperable
+### 상호 호환
 
-Create and consume Java code at will
+Java 코드를 생성하고 소모하면
 
 ``` kotlin
 import io.netty.channel.ChannelInboundMessageHandlerAdapter
@@ -13,9 +13,9 @@ public class NettyHandler: ChannelInboundMessageHandlerAdapter<Any>() {
 }
 ```
 
-Or use any existing library on the JVM, as there’s 100% compatibility, including SAM support.
+아니면 SAM 지원을 포함한 호환성 100% JVM의 기존의 라이브러리를 사용합니다.
 
-Target either the JVM or JavaScript. Write code in Kotlin and decide where you want to deploy to
+JVM이나 JavaScript를 타겟으로 합니다. Kotlin으로 코드를 작성하고, 어디에 배포할 것인지 결정하세요.
 
 ``` kotlin
 import js.dom.html.*
