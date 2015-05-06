@@ -7,17 +7,17 @@ title: "Returns and Jumps"
 
 # Returns and Jumps
 
-Kotlin has three structural jump operators
+Kotlin은 세 가지의 구조적 점프 연산을 갖습니다.
 
-* *return*{: .keyword }. By default returns from the nearest enclosing function or [function expression](lambdas.html#function-expressions).
-* *break*{: .keyword }. Terminates the nearest enclosing loop.
-* *continue*{: .keyword }. Proceeds to the next step of the nearest enclosing loop.
+* *return*{: .keyword }. 기본적으로 가장 가깝게 싸여있는 함수 혹은 [function expression](lambdas.html#function-expressions)으로부터 반환합니다.
+* *break*{: .keyword }. 가장 가까운 반복을 종료합니다.
+* *continue*{: .keyword }. 가장 가까운 반복의 다음 단계로 진행합니다.
 
-## Break and Continue Labels
+## Break와 Continue Label
 
-Any expression in Kotlin may be marked with a *label*{: .keyword }.
-Labels have the form of the `@` sign followed by an identifier, for example: `@abc`, `@fooBar` are valid labels (see the [grammar](grammar.html#label)).
-To label an expression, we just put a label in front of it
+Kotlin의 expression은 *label*{: .keyword }로 표기될 수 있습니다.
+Label은 식별자로 `@` 표시를 한 형태를 갖는데, 예를 들면: `@abc`, `@fooBar`와 같은 것들이 유효한 label이라고 할 수 있습니다([grammar](grammar.html#label) 참고).
+Expression에 label을 붙이려면, 단순히 앞에 label을 붙이기만 하면 됩니다.
 
 ``` kotlin
 @loop for (i in 1..100) {
@@ -25,7 +25,7 @@ To label an expression, we just put a label in front of it
 }
 ```
 
-Now, we can qualify a *break*{: .keyword } or a *continue*{: .keyword } with a label:
+이제, label을 통해 *break*{: .keyword }와 *continue*{: .keyword }를 특정할 수 있게 됩니다:
 
 ``` kotlin
 @loop for (i in 1..100) {
@@ -36,15 +36,15 @@ Now, we can qualify a *break*{: .keyword } or a *continue*{: .keyword } with a l
 }
 ```
 
-A *break*{: .keyword } qualified with a label jumps to the execution point right after the loop marked with that label.
-A *continue*{: .keyword } proceeds to the next iteration of that loop.
+*break*{: .keyword }에 label을 붙여 해당 label의 반복 바로 다음의 실행 지점으로 점프하도록 지정했습니다.
+*continue*{: .keyword }는 해당 반복의 다음 차례를 진행합니다.
 
 
-## Return at Labels
+## Label에서의 반환
 
-With function literals, local functions and object expression, functions can be nested in Kotlin. 
-Qualified *return*{: .keyword }s allow us to return from an outer function. 
-The most important use case is returning from a function literal. Recall that when we write this:
+Kotlin에서 함수는 함수 리터럴, 지역 함수와 객체 expression에 포함될 수 있습니다. 
+지정된 *return*{: .keyword }은 이때 바깥쪽 함수로부터 반환할 수 있도록 합니다. 
+가장 중요한 사용 예시는 함수 리터럴에서 반환할 때 입니다. 아래와 같이 작성할 때를 기억하세요:
 
 ``` kotlin
 fun foo() {
@@ -55,9 +55,9 @@ fun foo() {
 }
 ```
 
-The *return*{: .keyword }-expression returns from the nearest enclosing function, i.e. `foo`.
-(Note that such non-local returns are supported only for function literals passed to [inline-functions](inline-functions.html).)
-If we need to return from a function literal, we have to label it and qualify the *return*{: .keyword }:
+*return*{: .keyword }-expression returns은 아래 코드의 `foo`와 같이 가장 가까운 함수로부터 반환합니다.
+(비지역 반환은 [inline-functions](inline-functions.html)에 전달된 함수 리터럴에 대해서만 지원합니다.)
+함수 리터럴로부터 반환해야 한다면, *return*{: .keyword }에 label을 지정해야 합니다:
 
 ``` kotlin
 fun foo() {
@@ -68,8 +68,8 @@ fun foo() {
 }
 ```
 
-Now, it returns only from the function literal. Oftentimes it is more convenient to use implicits labels:
-such a label has the same name as the function to which the lambda is passed.
+이제 오직 함수 리터럴로부터 반환하도록 지정되었습니다. 종종 암시적인 label을 사용하는 것이 더 편할 수 있습니다:
+label이 람다가 전달된 함수와 같은 이름일 경우입니다.
 
 ``` kotlin
 fun foo() {
@@ -80,8 +80,8 @@ fun foo() {
 }
 ```
 
-Alternatively, we can replace the function literal with a [function expression](lambdas.html#function-expressions).
-A *return*{: .keyword } statement in a function expression will return from the function expression itself.
+다른 방식으로, 함수 리터럴을 [function expression](lambdas.html#function-expressions)로 대체할 수 있습니다.
+함수 expression에서의 *return*{: .keyword }문은 자기 자신으로부터 반환될 것입니다.
 
 ``` kotlin
 fun foo() {
@@ -92,15 +92,15 @@ fun foo() {
 }
 ```
 
-When returning a value, the parser gives preference to the qualified return, i.e.
+값을 반환할 때, 파서는 지정된 반환에 설정을 부여합니다. 예를 들면,
 
 ``` kotlin
 return@a 1
 ```
 
-means "return `1` at label `@a`" and not "return a labeled expression `(@a 1)`".
+위의 코드는 "label이 붙은 expression `(@a 1)`를 반환" 하는 것이 아니라 "label `@a`에 `1`을 반환" 한다는 의미입니다.
 
-Named functions automatically define labels:
+이름이 있는 함수는 자동으로 label이 정의됩니다:
 
 ``` kotlin
 fun outer() {
