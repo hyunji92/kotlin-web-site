@@ -38,8 +38,7 @@ fun read(b: Array<Byte>, off: Int = 0, len: Int = b.size) {
 }
 ```
 
-Default values are defined using the **=** after type along with the value. Default arguments must be the last in the list, that is, it is not possible to have
-a parameter without a default argument following one with a default argument.
+Default values are defined using the **=** after type along with the value.
 
 ### Named Arguments
 
@@ -48,7 +47,11 @@ Function parameters can be named when calling functions. This is very convenient
 Given the following function
 
 ``` kotlin
-fun reformat(str: String, normalizeCase: Boolean = true, upperCaseFirstLetter: Boolean = true, divideByCamelHumps: Boolean = false, wordSeparator: Character = ' ') {
+fun reformat(str: String,
+             normalizeCase: Boolean = true,
+             upperCaseFirstLetter: Boolean = true,
+             divideByCamelHumps: Boolean = false,
+             wordSeparator: Character = ' ') {
 ...
 }
 ```

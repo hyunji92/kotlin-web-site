@@ -28,7 +28,7 @@
     article: http://drdobbs.com/231500204
 
 
-- title: SOCON 2011, Emerging Languages
+- title: OSCON 2011, Emerging Languages
   url: http://www.oscon.com/oscon2011/public/schedule/detail/20924
   speaker: Andrey Breslav, Dmitry Jemerov
   date: 2011-09-17
@@ -44,7 +44,7 @@
   location: St Louis, MO, USA
   content:
     slides: http://www.slideshare.net/abreslav/kotlin-strangeloop-2011
-    article: http://www.infoq.com/presentations/The-Kotlin-Programming-Language
+    video: http://www.infoq.com/presentations/The-Kotlin-Programming-Language
 
 
 - title: Yandex and CSClub
@@ -791,14 +791,32 @@
   url: http://michigandevfest.com/schedule/#session-6
   subject: "Kotlin: New Hope in a Java 6 Wasteland"
   speaker: Michael Pardo
-  date: 2015-05-09
+  date: 2015-05-10
   location: Detroit, MI, USA
   lang: en
+  content:
+    slides: https://speakerdeck.com/pardom/kotlin-new-hope-in-a-java-6-wasteland
 
-- title: ECOOP'15
-  url: http://2015.ecoop.org/event/invited-speakers-intellij-idea
+- title: DroidCon 2015
+  url: http://droidcon.de/session/kotlin-swift-android
+  subject: "Kotlin - the Swift of Android"
+  speaker: Svetlana Isakova
+  date: 2015-06-04
+  location: Berlin, Germany
+  lang: en
+
+- title: CurryOn'15
+  url: http://curry-on.org/2015/sessions/kotlin-challenges-in-language-design.html
   subject: "Kotlin: Challenges in programming language design"
   speaker: Andrey Breslav
-  date: [2015-06-06, 2015-06-10]
+  date: 2015-06-06
   location: Prague, Czech Republic
+  lang: en
+
+- title: JBCN Conference
+  url: http://www.jbcnconf.com
+  subject: "Kotlin: What can it do for me?"
+  speaker: Hadi Hariri
+  date: [2015-06-26, 2015-06-27]
+  location: Barcelona, Spain
   lang: en

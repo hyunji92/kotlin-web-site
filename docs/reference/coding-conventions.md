@@ -28,7 +28,7 @@ private 프로퍼티를 만들어 `_foo`로 이름을 붙이지 않습니다.
 타입과 슈퍼타입을 구분하는 콜론의 앞에는 공백을 넣고, 인스턴스와 타입을 구분하는 콜론의 앞에는 공백을 넣지 않습니다:
 
 ``` kotlin
-trait Foo<out T : Any> : Bar {
+interface Foo<out T : Any> : Bar {
     fun foo(a: Int): T
 }
 ```

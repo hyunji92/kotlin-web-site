@@ -7,54 +7,56 @@ title: "Annotations"
 
 # Annotations
 
-## Annotation 선언
-Annotation이란 코드에 메타데이터를 첨부하는 것을 의미합니다. Annotation을 정의하기 위해, 클래스의 앞에 *annotation*{: .keyword } 키워드를 추가할 수 있습니다:
+## Annotation Declaration
+Annotations are means of attaching metadata to code. To declare an annotation, put the *annotation*{: .keyword } keyword in front of a class:
 
 ``` kotlin
 annotation class fancy
 ```
 
-### 사용 예시
+### Usage
 
 ``` kotlin
-[fancy] class Foo {
-  [fancy] fun baz([fancy] foo: Int): Int {
-    return [fancy] 1
+@fancy class Foo {
+  @fancy fun baz(@fancy foo: Int): Int {
+    return (@fancy 1)
   }
 }
 ```
 
-대부분의 경우, 대괄호는 필수가 아니라 Annotation의 표현이나 지역 선언을 할 때에만 필요합니다:
+In most cases, the `@ `sign is optional. It is only required when annotating expressions or local declarations:
 
 ``` kotlin
 fancy class Foo {
-  fancy fun baz(fancy foo: Int) {
-    [fancy] fun bar() { ... }
-    return [fancy] 1
+  fancy fun baz(fancy foo: Int): Int {
+    @fancy fun bar() { ... }
+    return (@fancy 1)
   }
 }
 ```
 
-클래스의 주생성자에 Annotation을 추가하려면, 다음 코드를 활용하면 됩니다:
+If you need to annotate the primary constructor of a class, you need to add the *constructor*{: .keyword} keyword
+to the constructor declaration, and add the annotations before it:
+
 
 ``` kotlin
-class Foo [inject](dependency: MyDependency) {
+class Foo @inject constructor(dependency: MyDependency) {
   // ...
 }
 ```
 
-프로퍼티 접근자에도 Annotation을 추가할 수 있습니다:
+You can also annotate property accessors:
 
 ``` kotlin
 class Foo {
     var x: MyDependency? = null
-        [inject] set
+        @inject set
 }
 ```
 
-### 생성자
+### Constructors
 
-Annotation은 매개 변수를 갖는 생성자를 가질 수 있습니다.
+Annotations may have constructors that take parameters.
 
 ``` kotlin
 annotation class special(val why: String)
@@ -62,9 +64,22 @@ annotation class special(val why: String)
 special("example") class Foo {}
 ```
 
+### Lambdas
+
+Annotations can also be used on lambdas. They will be applied to the `invoke()` method into which the body
+of the lambda is generated. This is useful for frameworks like [Quasar](http://www.paralleluniverse.co/quasar/),
+which uses annotations for concurrency control.
+
+``` kotlin
+annotation class Suspendable
+
+val f = @Suspendable { Fiber.sleep(10) }
+```
+
+
 ## Java Annotations
 
-Java의 Annotation은 Kotlin과 100% 호환됩니다:
+Java annotations are 100% compatible with Kotlin:
 
 ``` kotlin
 import org.junit.Test
@@ -77,7 +92,7 @@ class Tests {
 }
 ```
 
-Java Annotation은 import에서 새로운 이름을 정의함으로써 제어자처럼 사용될 수 있습니다:
+Java annotations can also be made to look like modifiers by renaming them on import:
 
 ``` kotlin
 import org.junit.Test as test
@@ -89,4 +104,76 @@ class Tests {
 }
 ```
 
+Since the order of parameters for an annotation written in Java is not defined, you can't use a regular function
+call syntax for passing the arguments. Instead, you need to use the named argument syntax.
 
+``` java
+// Java
+public @interface Ann {
+    int intValue();
+    String stringValue();
+}
+```
+
+``` kotlin
+// Kotlin
+Ann(intValue = 1, stringValue = "abc") class C
+```
+
+Just like in Java, a special case is the `value` parameter; its value can be specified without an explicit name.
+
+``` java
+// Java
+public @interface AnnWithValue {
+    String value();
+}
+```
+
+``` kotlin
+// Kotlin
+AnnWithValue("abc") class C
+```
+
+If the `value` argument in Java has an array type, it becomes a `vararg` parameter in Kotlin:
+
+``` java
+// Java
+public @interface AnnWithArrayValue {
+    String[] value();
+}
+```
+
+``` kotlin
+// Kotlin
+AnnWithArrayValue("abc", "foo", "bar") class C
+```
+
+If you need to specify a class as an argument of an annotation, use a Kotlin class
+([KClass](/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html)). The Kotlin compiler will
+automatically convert it to a Java class, so that the Java code will be able to see the annotations and arguments
+normally.
+
+``` kotlin
+
+import kotlin.reflect.KClass
+
+annotation class Ann(val arg1: KClass<*>, val arg2: KClass<out Any?>)
+
+Ann(String::class, Int::class) class MyClass
+```
+
+Values of an annotation instance are exposed as properties to Kotlin code.
+
+``` java
+// Java
+public @interface Ann {
+    int value();
+}
+```
+
+``` kotlin
+// Kotlin
+fun foo(ann: Ann) {
+    val i = ann.value
+}
+```
